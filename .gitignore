@@ -1,0 +1,6 @@
+build/
+repo/
+localhost/
+.flatpak-builder
+*.flatpak
+*.swp
