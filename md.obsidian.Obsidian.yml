@@ -1,12 +1,12 @@
 app-id: md.obsidian.Obsidian
 default-branch: stable
 base: org.electronjs.Electron2.BaseApp
-base-version: '22.08'
+base-version: "23.08"
 runtime: org.freedesktop.Platform
-runtime-version: '22.08'
+runtime-version: "23.08"
 sdk: org.freedesktop.Sdk
 sdk-extensions:
-  - org.freedesktop.Sdk.Extension.openjdk17
+  - org.freedesktop.Sdk.Extension.openjdk21
 command: obsidian.sh
 tags:
   - proprietary
@@ -33,24 +33,26 @@ modules:
       - cp -r * ${FLATPAK_DEST}
     sources:
       - type: archive
-        url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.3.5/obsidian-1.3.5.tar.gz
-        sha256: 8e19bace215a267bf8a6b3d27ce9c9fc46c84537fdae7bf30095719d5aa6584e
+        url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.8/obsidian-1.5.8.tar.gz
+        sha256: a1cda203613769cfee50dbfaba7cdf69ce66787a90ce6cc3565fccf633694bf3
         only-arches: [x86_64]
         x-checker-data:
           type: json
           url: https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest
-          url-query: .assets[] | select(.name=="obsidian-" + $version + ".tar.gz")
+          url-query:
+            .assets[] | select(.name=="obsidian-" + $version + ".tar.gz")
             | .browser_download_url
           version-query: .tag_name | sub("^v"; "")
           is-main-source: true
       - type: archive
-        url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.3.5/obsidian-1.3.5-arm64.tar.gz
-        sha256: 6a88440b591253ef6829d7b2afd012110e6a25125a5154e831ce418943fb4c1e
+        url: https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.8/obsidian-1.5.8-arm64.tar.gz
+        sha256: b4aa10ca46f8b83ef342ba3fafcbd540f6b77aa14a4476ecb3d5fc198754c7b3
         only-arches: [aarch64]
         x-checker-data:
           type: json
           url: https://api.github.com/repos/obsidianmd/obsidian-releases/releases/latest
-          url-query: .assets[] | select(.name=="obsidian-" + $version + "-arm64" +
+          url-query:
+            .assets[] | select(.name=="obsidian-" + $version + "-arm64" +
             ".tar.gz") | .browser_download_url
           version-query: .tag_name | sub("^v"; "")
       - type: file
@@ -64,7 +66,7 @@ modules:
   - name: openjdk
     buildsystem: simple
     build-commands:
-      - /usr/lib/sdk/openjdk17/install.sh
+      - /usr/lib/sdk/openjdk21/install.sh
   - name: languagetool
     buildsystem: simple
     build-commands:
@@ -72,5 +74,5 @@ modules:
       - mv * ${FLATPAK_DEST}/languagetool
     sources:
       - type: archive
-        url: https://internal1.languagetool.org/snapshots/LanguageTool-20230726-snapshot.zip
-        sha256: 6663499b9c4a98a591205f88c68ea132a1ffe84a5edaa7f0bd17d496aea945ba
+        url: https://internal1.languagetool.org/snapshots/LanguageTool-20240226-snapshot.zip
+        sha256: 3bec5e6dbd460621b9da58c9914a30502f4ee5650e18f3c06212305efe6006ef
